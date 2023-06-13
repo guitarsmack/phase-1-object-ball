@@ -255,59 +255,23 @@ function bigShoeRebounds(){
                 for (let stat in theName){
                     //debugger;
                     if (stat === "shoe"){
-                        debugger;
+                        //debugger;
                         let newShoe = teamObj[teamKey][playerName][stat]
                         if (newShoe > bigShoe){
                             debugger;
                             bigShoe = teamObj[teamKey][playerName][stat]
-                            bigShoePlayerRebounds = teamObj[teamKey][playerName]["rebounds"]
+                            bigShoePlayerRebounds = [playerName]
                             debugger;
                 }
             }
             }
         }
     }
-    return bigShoePlayerRebounds
+    return bigShoePlayerRebounds[0]
 }
 }
 
 
-function bigShoeRebounds(){
-    let obj = gameObject();
-    let bigShoe = 0
-    let bigShoePlayerRebounds = ""
-    for (let gameKey in obj){
-        //gameKeys are home and away
-        //debugger;
-        let teamObj = obj[gameKey]
-        //debugger;
-        //teamObj are home and away but with the keys available
-        for (let teamKey in teamObj){
-            //debugger;
-            let names = teamObj[teamKey]
-            //debugger;
-            //names are the names but only as one full object
-            for (let playerName in names){
-                //debugger;
-                let theName = names[playerName]
-                for (let stat in theName){
-                    //debugger;
-                    if (stat === "shoe"){
-                        debugger;
-                        let newShoe = teamObj[teamKey][playerName][stat]
-                        if (newShoe > bigShoe){
-                            debugger;
-                            bigShoe = teamObj[teamKey][playerName][stat]
-                            bigShoePlayerRebounds = teamObj[teamKey][playerName]["rebounds"]
-                            debugger;
-                }
-            }
-            }
-        }
-    }
-    return bigShoePlayerRebounds
-}
-}
 
 
 function mostPointsScored(){
@@ -346,3 +310,51 @@ function mostPointsScored(){
     return bigShoePlayerRebounds
 }
 }
+
+function winningTeam(){
+    let obj = gameObject();
+    pointsAway = 0
+    pointsHome = 0
+    for (let gameKey in obj){
+        //gameKeys are home and away
+        debugger;
+        if (gameKey === "home"){
+        let teamObj = obj[gameKey]
+        debugger;
+        //teamObj are home and away but with the keys available
+        for (let teamKey in teamObj){
+            debugger;
+            if (teamKey === "players"){
+            let names = teamObj[teamKey]
+            debugger;
+            //names are the names but only as one full object
+            for (let playerName in names){
+                debugger;
+                pointsHome = pointsHome + (teamObj[teamKey][playerName]["points"])
+            }}}
+        } else if (gameKey === "away"){
+            let teamObj = obj[gameKey]
+            debugger;
+            //teamObj are home and away but with the keys available
+            for (let teamKey in teamObj){
+                debugger;
+                if (teamKey === "players"){
+                let names = teamObj[teamKey]
+                debugger;
+                //names are the names but only as one full object
+                for (let playerName in names){
+                    debugger;
+                    pointsAway = pointsAway + (teamObj[teamKey][playerName]["points"])
+                }
+            }
+        }if (pointsAway > pointsHome){
+            return obj["away"]["teamName"]
+        } else {
+            return obj["home"]["teamName"]
+        }
+        }
+    }
+    
+}
+
+
